@@ -1,0 +1,180 @@
+*,
+*::after,
+*::before {
+   box-sizing: border-box;
+}
+
+@font-face {
+   font-family: "colored_crayons";
+   src: url(fonts/Colored_Crayons.ttf);
+   font-weight: normal;
+   font-style: normal;
+}
+
+:root {
+   --mark-size: calc(100px * 1.4);
+}
+
+body,
+html {
+   width: 100%;
+   height: 100%;
+   margin: 0;
+   background-image: url("images/chalkBoard.jpg");
+   background-size: cover;
+   background-repeat: no-repeat;
+}
+.title {
+   font-family: "colored_crayons";
+   font-size: 7em;
+   text-align: center;
+   color: #fbf7f5;
+   opacity: 0.8;
+}
+.board {
+   position: absolute;
+   left: 50%;
+   top: 60%;
+   transform: translate(-50%, -50%);
+   width: 450px;
+   height: 450px;
+   display: grid;
+   grid-template-columns: repeat(3, auto);
+   justify-content: center;
+   align-content: center;
+   justify-items: center;
+   align-items: center;
+}
+
+.cell {
+   width: 150px;
+   height: 150px;
+   cursor: pointer;
+   display: flex;
+   border: 1.6px solid rgba(251, 247, 245, 0.7);
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   /*border: 2px solid #e8e6e6;
+       border-image-source: url(images/Depositphotos_63867965_XL.jpg);
+ */
+}
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+   border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+   border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+   border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+   border-bottom: none;
+}
+
+.cell.x,
+.cell.o {
+   cursor: not-allowed;
+}
+
+.cell.x::before,
+.cell.x::after {
+   background: #fbf7f5;
+   opacity: 0.7;
+}
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
+   background-color: #c9c3c3;
+   opacity: 0.5;
+}
+
+.cell.o::before,
+.cell.o::after {
+   border: 6px solid #fbf7f5;
+   opacity: 0.7;
+}
+
+.board.o .cell:not(.x):not(.o):hover::after {
+   border: 5px solid #c9c3c3;
+   opacity: 0.5;
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
+   content: "";
+   position: absolute;
+   width: calc(var(--mark-size) * 0.04);
+   height: var(--mark-size);
+}
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before {
+   transform: rotate(45deg);
+}
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after {
+   transform: rotate(-45deg);
+}
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after {
+   content: "";
+   position: absolute;
+   border-radius: 50%;
+}
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before {
+   width: calc(var(--mark-size) * 0.8);
+   height: calc(var(--mark-size) * 0.8);
+   /* border: 6px solid whitesmoke;
+   opacity: 0.7; */
+}
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::after {
+   width: calc(var(--mark-size) * 0.8);
+   height: calc(var(--mark-size) * 0.8);
+}
+.winning-message {
+   display: none;
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   left: 0;
+   background-color: #192323;
+   opacity: 0.9;
+   justify-content: center;
+   align-items: center;
+   font-family: "colored_crayons";
+   color: #fbf7f5;
+   font-size: 7rem;
+   flex-direction: column;
+}
+.winning-message button {
+   font-size: 3rem;
+   background-color: #fbf7f5;
+   border: 1px solid #192323;
+   border-radius: 25px;
+   padding: 0.15em 0.6em;
+   cursor: pointer;
+   font-family: "colored_crayons";
+   color: #192323;
+}
+.winning-message button:hover {
+   background-color: #536868;
+   color: #fbf7f5;
+   border: 1px solid #192323;
+}
+
+.winning-message.show {
+   display: flex;
+}
